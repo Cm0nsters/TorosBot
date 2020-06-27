@@ -19,7 +19,7 @@ class Games(commands.Cog):
     async def flip(self, ctx):
         await ctx.send("You flipped: %s" % str(random.choice(Games.coinSides)))
 
-    @coin.command()
+    @coin.command(name='predict', aliases=['guess'])
     async def guessflip(self, ctx, guess):
         flip = str(random.choice(Games.coinSides))
 
@@ -43,7 +43,7 @@ class Games(commands.Cog):
     async def roll(self, ctx):
         await ctx.send(random.randint(1,6))
 
-    @dice.command()
+    @dice.command(name='predict', aliases=['guess'])
     async def guessroll(self, ctx, guess):
         roll = str(random.randint(1,6))
 

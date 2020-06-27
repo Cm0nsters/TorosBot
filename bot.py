@@ -30,8 +30,6 @@ def osCheck(system=platform.system()):
 
 
 defaultGame = '^help %s' % osCheck()
-defaultStreamURL = "https://twitch.tv/Cm0nsters"
-currentStreamURL = defaultStreamURL
 
 #Cogs Load
 
@@ -49,17 +47,6 @@ async def on_command_error(ctx,error):
     return await ctx.send("Uh-oh! Try using `^help`, or contact `Cm0nsters#6514` for assistance!")
 
 #User Commands
-
-@client.command()
-async def join(ctx):
-    author = ctx.message.author
-    voice_channel = author.voice.channel
-    await voice_channel.connect()
-
-@client.command()
-async def leave(ctx):
-    server = ctx.message.guild.voice_client
-    await server.disconnect()
 
 @client.command()
 async def hug(ctx,arg=None):
