@@ -14,7 +14,10 @@ class Music(commands.Cog):
         channel = ctx.message.author.voice.channel
         voice = get(self.client.voice_clients, guild=ctx.guild)
 
-        await self.joinChannel(voice, channel)
+        if voice and voice.is_connected():
+            await voice.move_to(channel)
+        else:
+            voice = await channel.connect()
 
     @commands.command()
     async def leave(self, ctx):
@@ -28,15 +31,12 @@ class Music(commands.Cog):
         channel = ctx.message.author.voice.channel
         voice = get(self.client.voice_clients, guild=ctx.guild)
 
-        await self.joinChannel(voice, channel)
-
-        voice.play(discord.FFmpegPCMAudio("test.mp3"))
-
-    async def joinChannel(self, voice, channel):
         if voice and voice.is_connected():
             await voice.move_to(channel)
         else:
             voice = await channel.connect()
+
+        voice.play(discord.FFmpegPCMAudio("test.mp3"))
 
 def setup(client):
     client.add_cog(Music(client))
