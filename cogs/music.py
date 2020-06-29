@@ -4,7 +4,7 @@ from discord.utils import get
 import youtube_dl
 import os
 
-class Example(commands.Cog):
+class Music(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -14,10 +14,7 @@ class Example(commands.Cog):
         channel = ctx.message.author.voice.channel
         voice = get(self.client.voice_clients, guild=ctx.guild)
 
-        if voice and voice.is_connected():
-            await voice.move_to(channel)
-        else:
-            voice = await channel.connect()
+        await self.joinChannel(voice, channel)
 
     @commands.command()
     async def leave(self, ctx):
@@ -26,5 +23,20 @@ class Example(commands.Cog):
         if voice and voice.is_connected():
             await voice.disconnect()
 
+    @commands.command(aliases=['p'])
+    async def play(self, ctx):
+        channel = ctx.message.author.voice.channel
+        voice = get(self.client.voice_clients, guild=ctx.guild)
+
+        await self.joinChannel(voice, channel)
+
+        voice.play(discord.FFmpegPCMAudio("test.mp3"))
+
+    async def joinChannel(self, voice, channel):
+        if voice and voice.is_connected():
+            await voice.move_to(channel)
+        else:
+            voice = await channel.connect()
+
 def setup(client):
-    client.add_cog(Example(client))
+    client.add_cog(Music(client))

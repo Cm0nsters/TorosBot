@@ -65,7 +65,7 @@ async def shutdown(ctx):
     print("Bot was shutdown")
     sys.exit()
 
-@client.command()
+@client.command(aliases=['reboot'])
 @commands.is_owner()
 async def restart(ctx):
     await client.change_presence(status=discord.Status.idle, activity=discord.Game(name='Restarting...'))
