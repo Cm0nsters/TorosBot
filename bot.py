@@ -5,9 +5,12 @@ import time
 import sys
 import os
 import platform
-from dotenv import load_dotenv
 
-load_dotenv("./.env")
+try:
+    from dotenv import load_dotenv
+    load_dotenv("./.env")
+except:
+    pass
 
 #Prefix
 
