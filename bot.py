@@ -10,7 +10,7 @@ try:
     from dotenv import load_dotenv
     load_dotenv("./.env")
 except:
-    pass
+    print("Unable to load dotenv")
 
 #Prefix
 
