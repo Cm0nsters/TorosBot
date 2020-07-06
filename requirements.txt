@@ -1,3 +1,2 @@
 discord
-dotenv
 youtube_dl
