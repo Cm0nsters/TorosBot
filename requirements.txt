@@ -1,2 +1,4 @@
 discord.py[voice]
 youtube_dl
+beautifulsoup4
+google

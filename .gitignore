@@ -123,3 +123,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Google cookies (from search function)
+.google-cookie
