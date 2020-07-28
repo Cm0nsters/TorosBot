@@ -27,9 +27,9 @@ class Games(commands.Cog):
         flip = str(random.choice(self.coinSides))
 
         if guess == flip:
-            await ctx.send("The coin flipped %s!" % flip)
+            await ctx.send(f"The coin flipped {flip}!")
         elif guess != flip:
-            await ctx.send("The coin flipped %s, not %s!" %(flip,guess))
+            await ctx.send(f"The coin flipped {flip}, not {guess}!")
         else:
             await ctx.send("Invalid choice!")
 
@@ -49,9 +49,9 @@ class Games(commands.Cog):
         roll = str(random.randint(1,6))
 
         if guess == roll:
-            await ctx.send("The dice rolled a %s!" % roll)
+            await ctx.send(f"The dice rolled a {roll}!")
         elif guess != roll:
-            await ctx.send("The dice rolled a %s, not a %s!" %(roll,guess))
+            await ctx.send(f"The dice rolled a {roll}, not a {guess}!")
         else:
             await ctx.send("Invalid choice!")
 
@@ -68,7 +68,7 @@ class Games(commands.Cog):
         slotRowT = [(slotRowM[0]+(await Games.numcheck(self=None,innumber=slotRowM[0],row="top"))),(slotRowM[1]+(await Games.numcheck(self=None,innumber=slotRowM[1],row="top"))),(slotRowM[2]+(await Games.numcheck(self=None,innumber=slotRowM[2],row="top")))]
         slotRowB = [(slotRowM[0]+(await Games.numcheck(self=None,innumber=slotRowM[0],row="bottom"))),(slotRowM[1]+(await Games.numcheck(self=None,innumber=slotRowM[1],row="bottom"))),(slotRowM[2]+(await Games.numcheck(self=None,innumber=slotRowM[2],row="bottom")))]
         responsesWin = ["Lucky Spin!","Congrats!","Well Done!"]
-        await ctx.send("```|   %s %s %s   |\n|-- %s %s %s --|\n|   %s %s %s   |```" %(str(slotRowT[0]),str(slotRowT[1]),str(slotRowT[2]),str(slotRowM[0]),str(slotRowM[1]),str(slotRowM[2]),str(slotRowB[0]),str(slotRowB[1]),str(slotRowB[2])))
+        await ctx.send(f"```|   {slotRowT[0]} {slotRowT[1]} {slotRowT[2]}   |\n|-- {slotRowM[0]} {slotRowM[1]} {slotRowM[2]} --|\n|   {slotRowB[0]} {slotRowB[1]} {slotRowB[2]}   |```")
 
         if slotRowM[0] == slotRowM[1]:
             if slotRowM[1] == slotRowM[2]:
@@ -78,7 +78,6 @@ class Games(commands.Cog):
         else:
             await ctx.send("Better luck next time...")
 
-    
     async def numcheck(self,innumber,row):
         num = int(innumber)
         rowPick = str(row)
