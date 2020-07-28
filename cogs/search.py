@@ -16,10 +16,10 @@ class Search(commands.Cog):
         for i in searchResult: 
             results.append(i)
         
-        await ctx.send("Here's the top 3 results found for `{}`:".format(args))
+        await ctx.send(f"Here's the top 3 results found for `{args}`:")
 
         for j in range(3):
-            await ctx.send("<{}>".format(results[j]))
+            await ctx.send(f"<{results[j]}>")
             
 
 def setup(client):

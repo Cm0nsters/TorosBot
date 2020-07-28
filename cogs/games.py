@@ -2,13 +2,16 @@ import discord
 from discord.ext import commands
 import random
 
+#Convert %s to f strings
+
 class Games(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.coinSides = ['heads','tails']
+        self.diceList = [1,2,3,4,5,6]
+        self.slotList = [1,2,3,4,5]
 
     #Coin
-
-    coinSides = ['heads','tails']
 
     @commands.group()
     async def coin(self, ctx):
@@ -17,11 +20,11 @@ class Games(commands.Cog):
 
     @coin.command()
     async def flip(self, ctx):
-        await ctx.send("You flipped: %s" % str(random.choice(Games.coinSides)))
+        await ctx.send("You flipped: %s" % str(random.choice(self.coinSides)))
 
     @coin.command(name='predict', aliases=['guess'])
     async def guessflip(self, ctx, guess):
-        flip = str(random.choice(Games.coinSides))
+        flip = str(random.choice(self.coinSides))
 
         if guess == flip:
             await ctx.send("The coin flipped %s!" % flip)
@@ -31,8 +34,6 @@ class Games(commands.Cog):
             await ctx.send("Invalid choice!")
 
     #Dice
-
-    diceList = [1,2,3,4,5,6]
 
     @commands.group()
     async def dice(self, ctx):
@@ -56,8 +57,6 @@ class Games(commands.Cog):
 
     #Slots
 
-    slotList = [1,2,3,4,5]
-
     @commands.group()
     async def slots(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -65,7 +64,7 @@ class Games(commands.Cog):
 
     @slots.command()
     async def pull(self, ctx):
-        slotRowM = [random.choice(Games.slotList),random.choice(Games.slotList),random.choice(Games.slotList)]
+        slotRowM = [random.choice(self.slotList),random.choice(self.slotList),random.choice(self.slotList)]
         slotRowT = [(slotRowM[0]+(await Games.numcheck(self=None,innumber=slotRowM[0],row="top"))),(slotRowM[1]+(await Games.numcheck(self=None,innumber=slotRowM[1],row="top"))),(slotRowM[2]+(await Games.numcheck(self=None,innumber=slotRowM[2],row="top")))]
         slotRowB = [(slotRowM[0]+(await Games.numcheck(self=None,innumber=slotRowM[0],row="bottom"))),(slotRowM[1]+(await Games.numcheck(self=None,innumber=slotRowM[1],row="bottom"))),(slotRowM[2]+(await Games.numcheck(self=None,innumber=slotRowM[2],row="bottom")))]
         responsesWin = ["Lucky Spin!","Congrats!","Well Done!"]

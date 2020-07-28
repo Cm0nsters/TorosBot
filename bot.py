@@ -20,8 +20,8 @@ client = commands.Bot(command_prefix='^',owner_id=int(os.getenv('OWNER_ID')))
 
 @client.event
 async def on_ready():
-    print("Discord.py version: %s" % discord.__version__)
-    print('Bot {0.user} is online!'.format(client))
+    print(f"Discord.py version: {discord.__version__}")
+    print(f'Bot {client.user} is online!')
     await client.change_presence(status=discord.Status.online, activity=discord.Game(name=defaultGame))
 
 def osCheck(system=platform.system()):
@@ -31,8 +31,7 @@ def osCheck(system=platform.system()):
     elif system == "Linux":
         return ""
 
-
-defaultGame = '^help %s' % osCheck()
+defaultGame = f'^help {osCheck()}'
 
 #Cogs Load
 
@@ -54,9 +53,9 @@ async def on_command_error(ctx,error):
 @client.command()
 async def hug(ctx,arg=None):
     if arg == None:
-        await ctx.send("*virtually hugs %s back*" % ctx.message.author.mention)
+        await ctx.send(f"*virtually hugs {ctx.message.author.mention} back*")
     else:
-        await ctx.send("*%s virtually hugs %s*" %(ctx.message.author.mention,arg))
+        await ctx.send(f"*{ctx.message.author.mention} virtually hugs {arg}*")
 
 #Admin Commands
 
@@ -82,20 +81,20 @@ async def restart(ctx):
 @commands.is_owner()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
-    await ctx.send("Cog `%s` has been loaded!" % extension)
+    await ctx.send(f"Cog `{extension}` has been loaded!")
 
 @client.command()
 @commands.is_owner()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
-    await ctx.send("Cog `%s` has been unloaded!" % extension)
+    await ctx.send(f"Cog `{extension}` has been unloaded!" % extension)
 
 @client.command()
 @commands.is_owner()
 async def reload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
-    await ctx.send("Cog `%s` has been reloaded!" % extension)
+    await ctx.send(f"Cog `{extension}` has been reloaded!")
 
 #Token
 
