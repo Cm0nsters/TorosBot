@@ -126,3 +126,6 @@ dmypy.json
 
 #Google cookies (from search function)
 .google-cookie
+
+#VSC Workspaces
+.code-workspace
