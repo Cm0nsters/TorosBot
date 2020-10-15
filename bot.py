@@ -46,7 +46,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_command_error(ctx,error):
     print(error)
-    return await ctx.send("Uh-oh! Try using `^help`, or contact `Cm0nsters#6514` for assistance!")
+    return await ctx.send(f"Uh-oh! Try using `^help`, or contact `Cm0nsters#6514` for assistance with the following:\n```{error}```")
 
 #User Commands
 
