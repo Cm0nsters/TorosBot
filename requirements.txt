@@ -1,4 +1,4 @@
-discord.py[voice]
-youtube_dl
-beautifulsoup4
-google
+discord.py[voice]==latest
+youtube_dl==latest
+beautifulsoup4==latest
+google==latest
