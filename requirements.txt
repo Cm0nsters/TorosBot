@@ -1,4 +1,4 @@
-discord.py[voice]
+discord.py[voice]==1.5.0
 youtube_dl
 beautifulsoup4
 google
