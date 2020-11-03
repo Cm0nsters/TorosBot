@@ -19,7 +19,7 @@ class Search(commands.Cog):
         await ctx.send(f"Here's the top 3 results found for `{args}`:")
 
         for j in range(3):
-            await ctx.send(f"< {results[j]} >")
+            await ctx.send(f"<{results[j]}>")
             
 
 def setup(client):
