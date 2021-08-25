@@ -44,14 +44,14 @@ for filename in os.listdir('./cogs'):
 #Command Fail
 
 @client.event
-async def on_command_error(ctx,error):
+async def on_command_error(ctx, error):
     print(error)
     return await ctx.send(f"Uh-oh! Try using `^help`, or contact `Cm0nsters#6514` for assistance with the following:\n```{error}```")
 
 #User Commands
 
 @client.command()
-async def hug(ctx,arg=None):
+async def hug(ctx, arg=None):
     if arg == None:
         await ctx.send(f"*virtually hugs {ctx.message.author.mention} back*")
     else:
@@ -87,7 +87,7 @@ async def load(ctx, extension):
 @commands.is_owner()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
-    await ctx.send(f"Cog `{extension}` has been unloaded!" % extension)
+    await ctx.send(f"Cog `{extension}` has been unloaded!")
 
 @client.command()
 @commands.is_owner()
