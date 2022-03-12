@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+import asyncio
 
 #Convert %s to f strings
 
@@ -8,8 +9,7 @@ class Games(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.coinSides = ['heads','tails']
-        self.diceList = [1,2,3,4,5,6]
-        self.slotList = [1,2,3,4,5]
+        self.slotChoices = ['\U0001F352','\U0001F347','\U0001F34A','\U0001F34B','\U0001F34F']
 
     #Coin
 
@@ -64,37 +64,27 @@ class Games(commands.Cog):
 
     @slots.command()
     async def pull(self, ctx):
-        slotRowM = [random.choice(self.slotList),random.choice(self.slotList),random.choice(self.slotList)]
-        slotRowT = [(slotRowM[0]+(await Games.numcheck(self=None,innumber=slotRowM[0],row="top"))),(slotRowM[1]+(await Games.numcheck(self=None,innumber=slotRowM[1],row="top"))),(slotRowM[2]+(await Games.numcheck(self=None,innumber=slotRowM[2],row="top")))]
-        slotRowB = [(slotRowM[0]+(await Games.numcheck(self=None,innumber=slotRowM[0],row="bottom"))),(slotRowM[1]+(await Games.numcheck(self=None,innumber=slotRowM[1],row="bottom"))),(slotRowM[2]+(await Games.numcheck(self=None,innumber=slotRowM[2],row="bottom")))]
+        machineRows = await self.generatemachine()
         responsesWin = ["Lucky Spin!","Congrats!","Well Done!"]
-        await ctx.send(f"```|   {slotRowT[0]} {slotRowT[1]} {slotRowT[2]}   |\n|-- {slotRowM[0]} {slotRowM[1]} {slotRowM[2]} --|\n|   {slotRowB[0]} {slotRowB[1]} {slotRowB[2]}   |```")
+        msg = await ctx.send("Please Wait...")
+        for i in range(5):
+            machine = f"```| {machineRows[0][0]} {machineRows[0][1]} {machineRows[0][2]} |\n|={machineRows[1][0]}={machineRows[1][1]}={machineRows[1][2]}=|\n| {machineRows[2][0]} {machineRows[2][1]} {machineRows[2][2]} |```"
+            await asyncio.sleep(0.2)
+            machineRows = await self.generatemachine()
+            await msg.edit(content=machine)
 
-        if slotRowM[0] == slotRowM[1]:
-            if slotRowM[1] == slotRowM[2]:
-                await ctx.send(random.choice(responsesWin))
-            else:
-                await ctx.send("Better luck next time...")
+        if machineRows[1][0] == machineRows[1][1] == machineRows[1][2]:
+            await ctx.send(random.choice(responsesWin))
         else:
             await ctx.send("Better luck next time...")
 
-    async def numcheck(self,innumber,row):
-        num = int(innumber)
-        rowPick = str(row)
-        if rowPick == "top":
-            if num == 1:
-                return 4
-            elif num == 5:
-                return -1
-            else:
-                return -1
-        elif rowPick == "bottom":
-            if num == 1:
-                return 1
-            elif num == 5:
-                return -4
-            else:
-                return 1
+    async def generatemachine(self):
+        machineRows = [[],[],[]]
+        for i in range(3):
+            for j in range(3):
+                machineRows[i].append(random.choice(self.slotChoices))
+
+        return machineRows
 
 def setup(client):
     client.add_cog(Games(client))

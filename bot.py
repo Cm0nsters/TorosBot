@@ -80,8 +80,11 @@ async def restart(ctx):
 @client.command()
 @commands.is_owner()
 async def load(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
-    await ctx.send(f"Cog `{extension}` has been loaded!")
+    try:
+        client.load_extension(f'cogs.{extension}')
+        await ctx.send(f"Cog `{extension}` has been loaded!")
+    except:
+        await ctx.send(f"Error loading cog `{extension}`")
 
 @client.command()
 @commands.is_owner()
